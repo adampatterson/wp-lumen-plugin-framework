@@ -71,7 +71,7 @@ return [
 	| provided for you; however, you are free to change this as needed.
 	|
 	*/
-	'table' => 'wplumen_sessions',
+	'table' => env('SESSION_TABLE'),
 	/*
 	|--------------------------------------------------------------------------
 	| Session Cache Store

@@ -7,7 +7,7 @@
  *
  * Plugin Name:       WP Lumen Plugin Framework
  * Plugin URI:        https://github.com/bayareawebpro/wp-lumen-plugin-framework/
- * Description:       (Lumen Framework 5.8)
+ * Description:       (Lumen Framework 10.0)
  * Version:           1.0
  * Author:            Some Dev
  * Author URI:        http://www.SomeDev.com/
@@ -22,8 +22,11 @@
 | To make our plugin portable, we don't use an .env file.  However, if you
 | want to use one, simple add one to the plugin's directory.
 */
+global $wpdb;
 putenv('APP_ENV=production');
 putenv('APP_DEBUG=true');
+putenv('SESSION_TABLE='.$wpdb->base_prefix.'wplumen_sessions');
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -47,12 +50,12 @@ error_reporting((config('app.debug') ? E_ALL : 0));
 |--------------------------------------------------------------------------
 | Resolve Plugin from LumenHelper Example
 |--------------------------------------------------------------------------
-| You can resolve each plugin by it's namespace.
+| You can resolve each plugin by its namespace.
 */
 //dd(\App\Helpers\LumenHelper::plugin('App')->config());
-
 if(!function_exists('wpLumen')){
     function wpLumen($namespace = null){
         return \App\Helpers\LumenHelper::plugin($namespace);
     }
 }
+
