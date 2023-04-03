@@ -8,6 +8,7 @@
     <table class="wp-list-table widefat striped">
         <thead>
         <tr>
+            <th scope="col">ID</th>
             <th scope="col">Title</th>
             <th scope="col">Modified</th>
             <th scope="col">Author</th>
@@ -17,8 +18,10 @@
         <ul>
             @foreach($posts as $post)
                 <tr>
-                    <td class="column-primary" data-colname="Event">
-
+                    <td class="column-primary">
+                        {{ $post->ID }}
+                    </td>
+                    <td>
                         {{ $post->post_title }}
                     </td>
                     <td>

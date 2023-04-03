@@ -13,4 +13,14 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\EventListener',
         ],
     ];
+
+    /**
+     * Determine if events and listeners should be automatically discovered.
+     *
+     * @return bool
+     */
+    public function shouldDiscoverEvents()
+    {
+        return false;
+    }
 }
