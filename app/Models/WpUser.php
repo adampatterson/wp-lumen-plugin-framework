@@ -1,4 +1,5 @@
-<?php namespace App\Models;
+<?php
+namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable;
@@ -9,57 +10,72 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
 class WpUser extends Model implements AuthenticatableContract, AuthorizableContract
 {
-	use Authenticatable, Authorizable;
 
-    protected $table = 'users';
+    use Authenticatable, Authorizable;
+
+    protected $table;
     protected $primaryKey = 'ID';
-	protected $guarded = ['ID'];
+    protected $guarded = ['ID'];
 
     protected $fillable = [
-    	'display_name',
-    	'user_login',
-	    'user_email',
-	    'user_pass',
-	    'user_registered'
+        'display_name',
+        'user_login',
+        'user_email',
+        'user_pass',
+        'user_registered'
     ];
     protected $hidden = [
         'user_pass',
     ];
-	public $timestamps = false;
-	public $dates = ['user_registered'];
+    public $timestamps = false;
+    public $dates = ['user_registered'];
 
-    public function meta(){
-        return $this->hasMany(WpUserMeta::class, 'ID','user_id');
+    public function __construct()
+    {
+        global $wpdb;
+        $this->table = $wpdb->base_prefix.'users';
+
+        parent::__construct();
     }
 
-	public function setUserPassAttribute($value){
-		$this->attributes['user_pass'] = wp_hash_password($value);
-	}
+    public function meta()
+    {
+        return $this->hasMany(WpUserMeta::class, 'ID', 'user_id');
+    }
 
-	public function wpLogin(){
-		clean_user_cache($this->ID);
-		wp_clear_auth_cookie();
-		wp_set_current_user($this->ID);
-		wp_set_auth_cookie($this->ID, true, false);
-	}
+    public function setUserPassAttribute($value)
+    {
+        $this->attributes['user_pass'] = wp_hash_password($value);
+    }
 
-	protected static function boot() {
-		parent::boot();
+    public function wpLogin()
+    {
+        clean_user_cache($this->ID);
+        wp_clear_auth_cookie();
+        wp_set_current_user($this->ID);
+        wp_set_auth_cookie($this->ID, true, false);
+    }
 
-		static::creating(function($model) {
-			$model->user_login = str_slug($model->user_email);
-			$model->user_nicename = str_slug($model->user_email);
-			$model->user_registered = Carbon::now()->toDateTimeString();
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->user_login      = str_slug($model->user_email);
+            $model->user_nicename   = str_slug($model->user_email);
+            $model->user_registered = Carbon::now()
+                ->toDateTimeString();
         });
-		static::created(function($model) {
-			wp_update_user((object) array(
-				'ID'=> $model->ID,
-				'role'=>'subscriber'
-			));
+        static::created(function ($model) {
+            wp_update_user(
+                (object)[
+                    'ID'   => $model->ID,
+                    'role' => 'subscriber'
+                ]
+            );
         });
 
-		static::saving(function($model) {
-
-		});
+        static::saving(function ($model) {
+        });
     }
 }
