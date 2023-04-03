@@ -8,7 +8,7 @@
 | Or, if installed normally the parent path should work.
 */
 if (!defined('DB_HOST')) {
-    $wpLoadLocal = realpath("/Users/builder/Projects/wp-lumen-local/wp-load.php");
+    $wpLoadLocal = realpath("/Users/adampatterson/Sites/cms/wordpress/wp-load.php");
     $wpLoadParent = realpath(__DIR__ . "/../../../../wp-load.php");
     if (is_file($wpLoadParent)) {
         require_once($wpLoadParent);
@@ -106,10 +106,11 @@ if ($config->get('session.enabled', false)) {
         ->give($app);
 }
 /** DebugBar */
+// @todo Debug Bar is not working properly
 if(!$app->runningInConsole() && $config->get('app.debug', false)){
-    $app->configure('debugbar');
-    $app->register(\Barryvdh\Debugbar\LumenServiceProvider::class);
-    $app->register(App\Providers\DebugbarServiceProvider::class);
+//    $app->configure('debugbar');
+//    $app->register(\Barryvdh\Debugbar\LumenServiceProvider::class);
+//    $app->register(App\Providers\DebugbarServiceProvider::class);
 }
 
 /*
