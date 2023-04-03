@@ -1,10 +1,21 @@
-<?php namespace App\Models;
+<?php
+namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
 
-class WpComment extends Model {
-	protected $table = 'comments';
-	protected $primaryKey = 'comment_ID';
-	public $timestamps = false;
+class WpComment extends Model
+{
 
-	//ToDo: Implement WpComment Model
+    protected $table;
+    protected $primaryKey = 'comment_ID';
+    protected $hidden = [];
+
+    //ToDo: Implement WpComment Model
+    public function __construct()
+    {
+        global $wpdb;
+        $this->table = $wpdb->prefix.'comments';
+
+        parent::__construct();
+    }
 }

@@ -1,6 +1,11 @@
-<?php namespace App\Models;
+<?php
+namespace App\Models;
+
 use App\Helpers\LumenHelper;
-class JSON{
+
+class JSON
+{
+
     /** @var $files \Illuminate\Filesystem\Filesystem */
     /** @var $logger \Illuminate\Log\Logger */
     protected $lumenHelper, $files, $logger;
@@ -13,16 +18,17 @@ class JSON{
 
     /**
      * JSON constructor.
-     * @param LumenHelper $lumenHelper
+     *
+     * @param  LumenHelper  $lumenHelper
      * @param $path
      */
     public function __construct(LumenHelper $lumenHelper, $path)
     {
-        $this->path = $path;
+        $this->path        = $path;
         $this->lumenHelper = $lumenHelper;
-        $this->files = $this->lumenHelper->make('files');
-        $this->logger = $this->lumenHelper->make('log');
-        $this->bin = [];
+        $this->files       = $this->lumenHelper->make('files');
+        $this->logger      = $this->lumenHelper->make('log');
+        $this->bin         = [];
         $this->initBin();
     }
 
@@ -41,7 +47,9 @@ class JSON{
 
     /**
      * Forget Key / Value Pair in the JSON storage file.
+     *
      * @param $key
+     *
      * @return self
      */
     public function forget($key)
@@ -52,14 +60,16 @@ class JSON{
 
     /**
      * Set a key / value pair entry in the JSON storage file.
+     *
      * @param $request array (key/value pair)
-     * @param bool $overwrite
+     * @param  bool  $overwrite
+     *
      * @return self
      */
     public function set($request, $overwrite = true)
     {
-        if(isset($request['key']) && isset($request['value'])){
-            if(!empty($request['key'])){
+        if (isset($request['key']) && isset($request['value'])) {
+            if ( ! empty($request['key'])) {
                 $this->bin[$request['key']] = $request['value'];
             }
         }
@@ -68,13 +78,15 @@ class JSON{
 
     /**
      * Get a key / value pair entry from the JSON storage file.
+     *
      * @param $key
-     * @param null $default
+     * @param  null  $default
+     *
      * @return string
      */
     public function get($key, $default = null)
     {
-        return isset($this->bin[$key]) && !empty($this->bin[$key]) ? $this->bin[$key] : $default;
+        return isset($this->bin[$key]) && ! empty($this->bin[$key]) ? $this->bin[$key] : $default;
     }
 
     /**
@@ -103,7 +115,7 @@ class JSON{
      */
     private function touchFile()
     {
-        if (!$this->files->isFile($this->path)) {
+        if ( ! $this->files->isFile($this->path)) {
             $this->files->put($this->path, '');
         }
         return $this;

@@ -3,9 +3,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class WpTerm extends Model {
 
-    protected $table = 'terms';
+    protected $table;
     protected $primaryKey = 'term_id';
 	public $timestamps = false;
+
+    public function __construct()
+    {
+        global $wpdb;
+        $this->table = $wpdb->prefix.'terms';
+
+        parent::__construct();
+    }
 
     public function meta(){
         $this->hasMany(WpTermMeta::class, 'term_id','term_id');

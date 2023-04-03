@@ -1,38 +1,53 @@
-<?php namespace App\Models;
+<?php
+namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
 
-class WpPostMeta extends Model {
-    protected $table = 'postmeta';
+class WpPostMeta extends Model
+{
+
+    protected $table;
     public $timestamps = false;
     public $fillable = ['meta_key', 'meta_value'];
+
+    public function __construct()
+    {
+        global $wpdb;
+        $this->table = $wpdb->prefix.'postmeta';
+
+        parent::__construct();
+    }
 
     public static function boot()
     {
         parent::boot();
 
-        static::creating(function($post){
+        static::creating(function ($post) {
             //$post->created_by = Auth::user()->id;
             //$post->updated_by = Auth::user()->id;
         });
 
-        static::updating(function($post){
+        static::updating(function ($post) {
             // $post->updated_by = Auth::user()->id;
         });
     }
-    public function post(){
-        $this->belongsTo(WpPost::class,'ID', 'post_id');
+
+    public function post()
+    {
+        $this->belongsTo(WpPost::class, 'ID', 'post_id');
     }
 
-	public function getMetaValueAttribute($value){
-		$value = maybe_unserialize($value);
+    public function getMetaValueAttribute($value)
+    {
+        $value = maybe_unserialize($value);
 
-		if(is_array($value) && sizeof($value) == 1){
-			$value = $value[0];
-		}
-		if(is_numeric($value)){
-			$value = intval($value);
-		}
+        if (is_array($value) && sizeof($value) == 1) {
+            $value = $value[0];
+        }
+        if (is_numeric($value)) {
+            $value = intval($value);
+        }
 
-		return $value;
-	}
+        return $value;
+    }
 }

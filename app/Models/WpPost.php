@@ -10,7 +10,7 @@ class WpPost extends Model {
 	const POST_TYPE = 'post';
 
 	/** Model Settings **/
-	protected $table = 'posts';
+	protected $table;
 	protected $primaryKey = 'ID';
 	protected $guarded = ['ID'];
 	protected $hidden = [];
@@ -23,11 +23,19 @@ class WpPost extends Model {
 	/** Appendable Attributes **/
 	public $appends = ['permalink'];
 
+    public function __construct()
+    {
+        global $wpdb;
+        $this->table = $wpdb->prefix.'posts';
+
+        parent::__construct();
+    }
+
 	/**
 	 * Get Permalink by Traversal
 	 * @return string
 	 */
-	public function getPermalinkAttribute(){
+    public function getPermalinkAttribute(){
 		$parent = $this;
 		$segments = new Collection();
 		do{
