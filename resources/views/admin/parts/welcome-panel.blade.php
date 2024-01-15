@@ -14,19 +14,25 @@
                     <input type="hidden" name="currency_code" value="USD">
                     <button type="submit" name="submit" class="button button-primary button-hero">Donate</button>
                     <img alt="" width="1" height="1"
-                         src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >
+                         src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif">
                 </form>
 
-                <p>or, <a href="https://github.com/bayareawebpro/wp-lumen-plugin-framework" target="_blank">contribute on GitHub!</a></p>
+                <p>or, <a href="https://github.com/bayareawebpro/wp-lumen-plugin-framework" target="_blank">contribute
+                        on GitHub!</a></p>
             </div>
             <div class="welcome-panel-column">
                 <h3>Documentation</h3>
                 <ul>
-                    <li><a target="_blank" href="https://lumen.laravel.com/docs/5.5"><span class="dashicons dashicons-media-document"></span> Lumen Docs</a></li>
-                    <li><a target="_blank" href="https://laravel.com/docs/5.5"><span class="dashicons dashicons-media-document"></span> Laravel Docs</a></li>
-                    <li><a target="_blank" href="https://laravel.com/docs/5.5/mix"><span class="dashicons dashicons-media-document"></span> Laravel Mix Docs</a></li>
-                    <li><a target="_blank" href="https://vuejs.org/v2/api/"><span class="dashicons dashicons-media-document"></span> Vue.js Docs</a></li>
-                    <li><a target="_blank" href="https://github.com/axios/axios"><span class="dashicons dashicons-media-document"></span> Axios.js Docs</a></li>
+                    <li><a target="_blank" href="https://lumen.laravel.com/docs/5.5"><span
+                                    class="dashicons dashicons-media-document"></span> Lumen Docs</a></li>
+                    <li><a target="_blank" href="https://laravel.com/docs/5.5"><span
+                                    class="dashicons dashicons-media-document"></span> Laravel Docs</a></li>
+                    <li><a target="_blank" href="https://laravel.com/docs/5.5/mix"><span
+                                    class="dashicons dashicons-media-document"></span> Laravel Mix Docs</a></li>
+                    <li><a target="_blank" href="https://vuejs.org/v2/api/"><span
+                                    class="dashicons dashicons-media-document"></span> Vue.js Docs</a></li>
+                    <li><a target="_blank" href="https://github.com/axios/axios"><span
+                                    class="dashicons dashicons-media-document"></span> Axios.js Docs</a></li>
                 </ul>
             </div>
             <div class="welcome-panel-column welcome-panel-last">
